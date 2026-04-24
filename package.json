@@ -1,0 +1,41 @@
+{
+  "name": "b0mb",
+  "version": "1.0.0",
+  "description": "The backend of p3ng0s",
+  "keywords": [
+    "redteam"
+  ],
+  "homepage": "https://github.com/dr0pz0n3/b0mb#readme",
+  "bugs": {
+    "url": "https://github.com/dr0pz0n3/b0mb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dr0pz0n3/b0mb.git"
+  },
+  "license": "MIT",
+  "author": "p4p1",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.5.0",
+    "notp": "^2.0.3",
+    "redis": "^5.12.1",
+    "thirty-two": "^1.0.2",
+    "uuid": "^14.0.0",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.2.1",
+    "globals": "^17.5.0"
+  }
+}
