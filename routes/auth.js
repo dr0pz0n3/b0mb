@@ -50,7 +50,7 @@ router.post('/login', middleware.checkLogin, async (req, res) => {
     }
     console.log(otp);
 
-    const refreshToken = jwt.sign({ username: user.username }, JWT_SECRET_KEY, { expiresIn: "7d" });
+    const refreshToken = jwt.sign({ type:'user', username: user.username }, JWT_SECRET_KEY, { expiresIn: "7d" });
 
     await redis.set(user._id.toString(), refreshToken);
     await user.resetLoginAttempts();
@@ -76,7 +76,7 @@ router.get('/refresh', middleware.refreshToken, async (req, res) => {
       return res.status(401).send({ msg: "Incorrect token!" });
     }
 
-    const accessToken = jwt.sign({ username: user.username }, REFRESH_JWT_SECRET_KEY, { expiresIn: "24h" });
+    const accessToken = jwt.sign({ type:'user', username: user.username }, REFRESH_JWT_SECRET_KEY, { expiresIn: "24h" });
     return res.status(200).send({ msg: "Refreshed!", accessToken });
 
   } catch (e) {

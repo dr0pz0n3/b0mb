@@ -25,19 +25,13 @@ module.exports = {
     const date = new Date();
 
     if (!req.body.username || req.body.username.length < 3) {
-      return res.status(400).send({
-        msg: "Incorrect Username or password"
-      });
+      return res.status(404).send();
     }
     if (!req.body.password || req.body.password.length < 3) {
-      return res.status(400).send({
-        msg: "Incorrect Username or password"
-      });
+      return res.status(404).send();
     }
     if (!req.body.otp_code) {
-      return res.status(400).send({
-        msg: "Incorrect Username or password"
-      });
+      return res.status(404).send();
     }
     logger.info("[" + date + "] - " + req.ip + " - User Attempt Login: " + req.body.username);
     next();

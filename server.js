@@ -21,7 +21,7 @@ app.use('/public', express.static('public'));
 
 // routes
 var auth = require('./routes/auth');
-//var user = require('./routes/user');
+var unit = require('./routes/unit');
 //var api = require('./routes/api');
 //var code = require('./routes/code');
 //var websocket = require('./routes/websocket');
@@ -47,6 +47,7 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 
 app.use('/auth', auth);
+app.use('/unit', unit);
 app.get("/", function (_req, res) {
   return res.status(200).send(`b0mb online`);
 });
