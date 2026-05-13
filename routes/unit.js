@@ -301,7 +301,7 @@ router.post('/generate', middleware.isLoggedIn, async (req, res) => {
     const actualToken = obfuscation.obfuscateToken(downloadToken);
 
     if (VERBOSE) console.log(`Generated loot for unit ${token} at ${tarPath}`);
-    return res.status(200).send({ msg: 'loot generated', actualToken });
+    return res.status(200).send({ msg: 'loot generated', token: actualToken, cmd: `curl https://api.${DOMAIN}/download -H 'Authorization: Bearer ${actualToken}'` });
   } catch (e) {
     if (VERBOSE) console.log(e);
     return res.status(500).send({ msg: 'internal server error' });

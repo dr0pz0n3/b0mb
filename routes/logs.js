@@ -1,5 +1,6 @@
 const express = require('express');
 const middleware = require('../middleware/middleware.js');
+const fs = require('fs');
 const Log = require('../lib/models/Log.js');
 const VERBOSE = process.env.VERBOSE === 'true';
 

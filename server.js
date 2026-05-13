@@ -25,6 +25,7 @@ var auth = require('./routes/auth');
 var unit = require('./routes/unit');
 var download = require('./routes/download');
 var settings = require('./routes/settings');
+var logs = require('./routes/logs');
 //var api = require('./routes/api');
 //var code = require('./routes/code');
 //var websocket = require('./routes/websocket');
@@ -54,6 +55,7 @@ app.use('/auth', auth);
 app.use('/unit', unit);
 app.use('/download', download);
 app.use('/settings', settings);
+app.use('/l', logs);
 app.get("/", function (_req, res) {
   return res.status(200).send(`b0mb online`);
 });
