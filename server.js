@@ -7,6 +7,7 @@ const cors = require('cors');
 const uuid = require('uuid');
 const bcrypt = require("bcryptjs");
 const base32 = require('thirty-two');
+const qrcode = require('qrcode-terminal');
 
 const User = require('./lib/models/User.js');
 
@@ -22,6 +23,8 @@ app.use('/public', express.static('public'));
 // routes
 var auth = require('./routes/auth');
 var unit = require('./routes/unit');
+var download = require('./routes/download');
+var settings = require('./routes/settings');
 //var api = require('./routes/api');
 //var code = require('./routes/code');
 //var websocket = require('./routes/websocket');
@@ -38,6 +41,7 @@ async function initAdmin() {
   const encoded_totp = base32.encode(totp_key).toString().replace(/=/g, '');
   console.log(`[b0mb] admin created!`);
   console.log(`[b0mb] OTP: otpauth://totp/${process.env.ADMIN_USER}@b0mb?secret=${encoded_totp}`);
+  qrcode.generate(`otpauth://totp/${process.env.ADMIN_USER}@b0mb?secret=${encoded_totp}`, { small: true });
 }
 
 mongoose.connect(process.env.MONGO_URI).then(() => {
@@ -48,6 +52,8 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 
 app.use('/auth', auth);
 app.use('/unit', unit);
+app.use('/download', download);
+app.use('/settings', settings);
 app.get("/", function (_req, res) {
   return res.status(200).send(`b0mb online`);
 });
