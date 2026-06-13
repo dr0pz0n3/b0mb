@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const shortid = require("shortid");
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -10,6 +11,8 @@ const base32 = require('thirty-two');
 const qrcode = require('qrcode-terminal');
 
 const User = require('./lib/models/User.js');
+
+const auth_prefix = shortid.generate();
 
 const app = express();
 
@@ -26,6 +29,8 @@ var unit = require('./routes/unit');
 var download = require('./routes/download');
 var settings = require('./routes/settings');
 var logs = require('./routes/logs');
+var agents = require('./routes/agents');
+var agentAccept = require('./routes/agentAccept');
 //var api = require('./routes/api');
 //var code = require('./routes/code');
 //var websocket = require('./routes/websocket');
@@ -51,10 +56,12 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
 }).catch(err => console.error(err))
 
 
-app.use('/auth', auth);
+app.use('/'+auth_prefix, auth);
 app.use('/unit', unit);
 app.use('/download', download);
 app.use('/settings', settings);
+app.use('/agents', agents);
+app.use('/auth/', agentAccept);
 app.use('/l', logs);
 app.get("/", function (_req, res) {
   return res.status(200).send(`b0mb online`);
@@ -62,7 +69,10 @@ app.get("/", function (_req, res) {
 
 
 const server = http.createServer(app);
-server.listen(8000,() => console.log("[b0mb] listening on 8000"));
+server.listen(8000,() => {
+  console.log("[b0mb] listening on 8000");
+  console.log(`[b0mb] Auth prefix: ${auth_prefix}`);
+});
 
 server.on('error', (error) => {
   switch (error.code) {
