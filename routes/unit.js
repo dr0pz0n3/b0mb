@@ -254,7 +254,6 @@ router.delete('/', middleware.isLoggedIn, async (req, res) => {
     }
     return res.status(500).send({ msg: 'internal server error' });
   }
-
 });
 
 // upload files to the unit
